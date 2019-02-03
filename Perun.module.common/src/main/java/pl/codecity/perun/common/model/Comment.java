@@ -38,10 +38,10 @@ public class Comment extends AbstractDomainObject<Integer> implements Comparable
     @JoinColumn(name = "POST_ID", referencedColumnName = "post_id", nullable = false)
     private Post post;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "user_id", nullable = false)
-    private User user;
+//    @NotNull
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "USER_ID", referencedColumnName = "user_id", nullable = false)
+//    private User user;
 
     //Constructors
 
@@ -49,11 +49,11 @@ public class Comment extends AbstractDomainObject<Integer> implements Comparable
         super();
     }
 
-    public Comment(String commentContent, Post post, User user) {
-        this.commentContent = commentContent;
-        this.post = post;
-        this.user = user;
-    }
+//    public Comment(String commentContent, Post post, User user) {
+//        this.commentContent = commentContent;
+//        this.post = post;
+//        this.user = user;
+//    }
 
     // Abstract methods
 
@@ -105,13 +105,13 @@ public class Comment extends AbstractDomainObject<Integer> implements Comparable
         this.post = post;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     // Other methods
 

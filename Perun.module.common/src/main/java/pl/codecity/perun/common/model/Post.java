@@ -3,7 +3,7 @@ package pl.codecity.perun.common.model;
 import org.hibernate.annotations.*;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.*;
-import pl.codecity.perun.account.model.User;
+//import pl.codecity.perun.account.model.User;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -53,9 +53,9 @@ public class Post extends AbstractDomainObject<Integer> {
     @SortableField(forField = "sortDate")
     private LocalDateTime date;
 
-    @ManyToOne
-    @IndexedEmbedded(includeEmbeddedObjectId = true)
-    private User author;
+//    @ManyToOne
+//    @IndexedEmbedded(includeEmbeddedObjectId = true)
+//    private User author;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", length = 50, nullable = false)
@@ -187,13 +187,13 @@ public class Post extends AbstractDomainObject<Integer> {
         this.date = date;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
+//    public User getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(User author) {
+//        this.author = author;
+//    }
 
     public Status getStatus() {
         return status;

@@ -1,21 +1,21 @@
 package pl.codecity.perun.common.configuration;
 
-import com.amazonaws.util.EC2MetadataUtils;
-import jp.co.tagbangers.jgroups.S3_CLIENT_PING;
-import org.infinispan.configuration.cache.CacheMode;
-import org.infinispan.configuration.cache.ConfigurationBuilder;
-import org.infinispan.configuration.global.GlobalConfigurationBuilder;
-import org.infinispan.configuration.parsing.ConfigurationBuilderHolder;
-import org.infinispan.configuration.parsing.ParserRegistry;
-import org.infinispan.eviction.EvictionStrategy;
-import org.infinispan.eviction.EvictionType;
-import org.infinispan.hibernate.search.impl.DefaultCacheManagerService;
-import org.infinispan.lucene.LuceneKey2StringMapper;
-import org.infinispan.manager.DefaultCacheManager;
-import org.infinispan.manager.EmbeddedCacheManager;
-import org.infinispan.persistence.jdbc.configuration.JdbcStringBasedStoreConfigurationBuilder;
-import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
-import org.jgroups.conf.ClassConfigurator;
+//import com.amazonaws.util.EC2MetadataUtils;
+//import jp.co.tagbangers.jgroups.S3_CLIENT_PING;
+//import org.infinispan.configuration.cache.CacheMode;
+//import org.infinispan.configuration.cache.ConfigurationBuilder;
+//import org.infinispan.configuration.global.GlobalConfigurationBuilder;
+//import org.infinispan.configuration.parsing.ConfigurationBuilderHolder;
+//import org.infinispan.configuration.parsing.ParserRegistry;
+//import org.infinispan.eviction.EvictionStrategy;
+//import org.infinispan.eviction.EvictionType;
+//import org.infinispan.hibernate.search.impl.DefaultCacheManagerService;
+//import org.infinispan.lucene.LuceneKey2StringMapper;
+//import org.infinispan.manager.DefaultCacheManager;
+//import org.infinispan.manager.EmbeddedCacheManager;
+//import org.infinispan.persistence.jdbc.configuration.JdbcStringBasedStoreConfigurationBuilder;
+//import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
+//import org.jgroups.conf.ClassConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,124 +62,127 @@ public class PerunCacheConfiguration extends CachingConfigurerSupport {
 	@Override
 	public CacheManager cacheManager() {
 		// JGroups settings
-		String jgroupsConfigurationFile = environment.getRequiredProperty("jgroups.configurationFile");
-		if ("jgroups-ec2.xml".equals(jgroupsConfigurationFile)) {
-			ClassConfigurator.addProtocol((short) 1000, S3_CLIENT_PING.class);
-			String ipAddress = EC2MetadataUtils.getPrivateIpAddress();
-			logger.info("jgroups.tcp.address -> {}", ipAddress);
-			System.setProperty("jgroups.tcp.address", ipAddress);
-			System.setProperty("jgroups.s3.bucket", environment.getRequiredProperty("jgroups.s3.bucket"));
-		}
+//		String jgroupsConfigurationFile = environment.getRequiredProperty("jgroups.configurationFile");
+//		if ("jgroups-ec2.xml".equals(jgroupsConfigurationFile)) {
+//			ClassConfigurator.addProtocol((short) 1000, S3_CLIENT_PING.class);
+//			String ipAddress = EC2MetadataUtils.getPrivateIpAddress();
+//			logger.info("jgroups.tcp.address -> {}", ipAddress);
+//			System.setProperty("jgroups.tcp.address", ipAddress);
+//			System.setProperty("jgroups.s3.bucket", environment.getRequiredProperty("jgroups.s3.bucket"));
+//		}
+//
+//		Resource hibernateSearchConfig = new ClassPathResource(DefaultCacheManagerService.DEFAULT_INFINISPAN_CONFIGURATION_RESOURCENAME);
+//		ParserRegistry parserRegistry = new ParserRegistry();
+//		ConfigurationBuilderHolder holder;
+//		try {
+//			holder = parserRegistry.parse(hibernateSearchConfig.getInputStream());
+//		} catch (IOException e) {
+//			throw new RuntimeException(e);
+//		}
+//
+//		// GlobalConfiguration
+//		// @formatter:off
+//		GlobalConfigurationBuilder globalBuilder = holder.getGlobalConfigurationBuilder();
+//		globalBuilder
+//			.globalJmxStatistics()
+//				.allowDuplicateDomains(true)
+//			.transport()
+//				.defaultTransport()
+//					.addProperty("configurationFile", jgroupsConfigurationFile);
+//		// @formatter:on
+//
+//		// DefaultConfiguration
+//		// @formatter:off
+//		for (ConfigurationBuilder luceneIndexesBuilder : holder.getNamedConfigurationBuilders().values()) {
+//			if ("mysql".equals(dataSourceProperties.getPlatform())) {
+//				luceneIndexesBuilder
+//					.persistence()
+//						.addStore(JdbcStringBasedStoreConfigurationBuilder.class)
+//							.preload(true)
+//							.shared(true)
+//							.key2StringMapper(LuceneKey2StringMapper.class)
+//								.table()
+//								.tableNamePrefix("ispn_string_table")
+//								.idColumnName("id_column")
+//								.idColumnType("varchar(255)")
+//								.dataColumnName("data_column")
+//								.dataColumnType("longblob")
+//								.timestampColumnName("timestamp_column")
+//								.timestampColumnType("bigint")
+//								.dropOnExit(false)
+//								.createOnStart(true)
+//							.async()
+//								.enable()
+//								.threadPoolSize(10)
+//							.fetchPersistentState(true)
+//							.ignoreModifications(false)
+//							.purgeOnStartup(false)
+//							.connectionFactory(InfinispanDataSourceConnectionFactoryConfigurationBuilder.class).dataSource(dataSource);
+//			} else if ("postgresql".equals(dataSourceProperties.getPlatform())) {
+//				luceneIndexesBuilder
+//					.persistence()
+//						.addStore(JdbcStringBasedStoreConfigurationBuilder.class)
+//							.preload(true)
+//							.shared(true)
+//							.key2StringMapper(LuceneKey2StringMapper.class)
+//								.table()
+//								.tableNamePrefix("ispn_string_table")
+//								.idColumnName("id_column")
+//								.idColumnType("varchar(255)")
+//								.dataColumnName("data_column")
+//								.dataColumnType("bytea")
+//								.timestampColumnName("timestamp_column")
+//								.timestampColumnType("bigint")
+//								.dropOnExit(false)
+//								.createOnStart(true)
+//							.async()
+//								.enable()
+//								.threadPoolSize(10)
+//							.fetchPersistentState(true)
+//							.ignoreModifications(false)
+//							.purgeOnStartup(false)
+//							.connectionFactory(InfinispanDataSourceConnectionFactoryConfigurationBuilder.class).dataSource(dataSource);
+//			} else {
+//				throw new IllegalStateException();
+//			}
+//		}
+//		// @formatter:on
+//
+//		// @formatter:off
+//		ConfigurationBuilder cacheBuilder = new ConfigurationBuilder();
+//		cacheBuilder
+//			.clustering()
+//				.cacheMode(CacheMode.REPL_SYNC)
+//				.eviction()
+//					.type(EvictionType.COUNT)
+//					.strategy(EvictionStrategy.LIRS)
+//					.size(1000);
+////				.indexing()
+////					.index(Index.NONE);
+//		// @formatter:on
+//
+//		holder.getNamedConfigurationBuilders().put(BLOG_CACHE, cacheBuilder);
+//		//holder.getNamedConfigurationBuilders().put("settings", cacheBuilder);
+//		holder.getNamedConfigurationBuilders().put(POPULAR_POST_CACHE, cacheBuilder);
+//		holder.getNamedConfigurationBuilders().put(ARTICLE_CACHE, cacheBuilder);
+//		holder.getNamedConfigurationBuilders().put(PAGE_CACHE, cacheBuilder);
+//		holder.getNamedConfigurationBuilders().put(CATEGORY_CACHE, cacheBuilder);
+//		holder.getNamedConfigurationBuilders().put(CUSTOM_FIELD_CACHE, cacheBuilder);
+//		holder.getNamedConfigurationBuilders().put(MEDIA_CACHE, cacheBuilder);
+//		holder.getNamedConfigurationBuilders().put(BANNER_CACHE, cacheBuilder);
+//		holder.getNamedConfigurationBuilders().put(USER_CACHE, cacheBuilder);
+//
+//		EmbeddedCacheManager embeddedCacheManager = new DefaultCacheManager(holder, true);
+//		InfinispanSingletonCacheManagerDirectoryProvider.cacheManager = embeddedCacheManager;
+//		return new SpringEmbeddedCacheManager(embeddedCacheManager);
+//	}
+//
+//	@Bean
+//	@Override
+//	public KeyGenerator keyGenerator() {
+//		return new CacheKeyGenerator();
+//	}
 
-		Resource hibernateSearchConfig = new ClassPathResource(DefaultCacheManagerService.DEFAULT_INFINISPAN_CONFIGURATION_RESOURCENAME);
-		ParserRegistry parserRegistry = new ParserRegistry();
-		ConfigurationBuilderHolder holder;
-		try {
-			holder = parserRegistry.parse(hibernateSearchConfig.getInputStream());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-		// GlobalConfiguration
-		// @formatter:off
-		GlobalConfigurationBuilder globalBuilder = holder.getGlobalConfigurationBuilder();
-		globalBuilder
-			.globalJmxStatistics()
-				.allowDuplicateDomains(true)
-			.transport()
-				.defaultTransport()
-					.addProperty("configurationFile", jgroupsConfigurationFile);
-		// @formatter:on
-
-		// DefaultConfiguration
-		// @formatter:off
-		for (ConfigurationBuilder luceneIndexesBuilder : holder.getNamedConfigurationBuilders().values()) {
-			if ("mysql".equals(dataSourceProperties.getPlatform())) {
-				luceneIndexesBuilder
-					.persistence()
-						.addStore(JdbcStringBasedStoreConfigurationBuilder.class)
-							.preload(true)
-							.shared(true)
-							.key2StringMapper(LuceneKey2StringMapper.class)
-								.table()
-								.tableNamePrefix("ispn_string_table")
-								.idColumnName("id_column")
-								.idColumnType("varchar(255)")
-								.dataColumnName("data_column")
-								.dataColumnType("longblob")
-								.timestampColumnName("timestamp_column")
-								.timestampColumnType("bigint")
-								.dropOnExit(false)
-								.createOnStart(true)
-							.async()
-								.enable()
-								.threadPoolSize(10)
-							.fetchPersistentState(true)
-							.ignoreModifications(false)
-							.purgeOnStartup(false)
-							.connectionFactory(InfinispanDataSourceConnectionFactoryConfigurationBuilder.class).dataSource(dataSource);
-			} else if ("postgresql".equals(dataSourceProperties.getPlatform())) {
-				luceneIndexesBuilder
-					.persistence()
-						.addStore(JdbcStringBasedStoreConfigurationBuilder.class)
-							.preload(true)
-							.shared(true)
-							.key2StringMapper(LuceneKey2StringMapper.class)
-								.table()
-								.tableNamePrefix("ispn_string_table")
-								.idColumnName("id_column")
-								.idColumnType("varchar(255)")
-								.dataColumnName("data_column")
-								.dataColumnType("bytea")
-								.timestampColumnName("timestamp_column")
-								.timestampColumnType("bigint")
-								.dropOnExit(false)
-								.createOnStart(true)
-							.async()
-								.enable()
-								.threadPoolSize(10)
-							.fetchPersistentState(true)
-							.ignoreModifications(false)
-							.purgeOnStartup(false)
-							.connectionFactory(InfinispanDataSourceConnectionFactoryConfigurationBuilder.class).dataSource(dataSource);
-			} else {
-				throw new IllegalStateException();
-			}
-		}
-		// @formatter:on
-
-		// @formatter:off
-		ConfigurationBuilder cacheBuilder = new ConfigurationBuilder();
-		cacheBuilder
-			.clustering()
-				.cacheMode(CacheMode.REPL_SYNC)
-				.eviction()
-					.type(EvictionType.COUNT)
-					.strategy(EvictionStrategy.LIRS)
-					.size(1000);
-//				.indexing()
-//					.index(Index.NONE);
-		// @formatter:on
-
-		holder.getNamedConfigurationBuilders().put(BLOG_CACHE, cacheBuilder);
-		//holder.getNamedConfigurationBuilders().put("settings", cacheBuilder);
-		holder.getNamedConfigurationBuilders().put(POPULAR_POST_CACHE, cacheBuilder);
-		holder.getNamedConfigurationBuilders().put(ARTICLE_CACHE, cacheBuilder);
-		holder.getNamedConfigurationBuilders().put(PAGE_CACHE, cacheBuilder);
-		holder.getNamedConfigurationBuilders().put(CATEGORY_CACHE, cacheBuilder);
-		holder.getNamedConfigurationBuilders().put(CUSTOM_FIELD_CACHE, cacheBuilder);
-		holder.getNamedConfigurationBuilders().put(MEDIA_CACHE, cacheBuilder);
-		holder.getNamedConfigurationBuilders().put(BANNER_CACHE, cacheBuilder);
-		holder.getNamedConfigurationBuilders().put(USER_CACHE, cacheBuilder);
-
-		EmbeddedCacheManager embeddedCacheManager = new DefaultCacheManager(holder, true);
-		InfinispanSingletonCacheManagerDirectoryProvider.cacheManager = embeddedCacheManager;
-		return new SpringEmbeddedCacheManager(embeddedCacheManager);
-	}
-
-	@Bean
-	@Override
-	public KeyGenerator keyGenerator() {
-		return new CacheKeyGenerator();
+		return null;
 	}
 }
