@@ -89,16 +89,16 @@ public class Post extends AbstractDomainObject<Integer> {
 //    @Field(bridge = @FieldBridge(impl = CustomFieldValuesBridge.class))
 //    private SortedSet<CustomFieldValue> customFieldValues = new TreeSet<>();
 
-    @OneToMany(mappedBy = "drafted", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @SortNatural
-    private SortedSet<Post> drafts;
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @SortNatural
-    @ContainedIn
-    private SortedSet<Comment> comments;
+//    @OneToMany(mappedBy = "drafted", cascade = CascadeType.ALL)
+//    @LazyCollection(LazyCollectionOption.EXTRA)
+//    @SortNatural
+//    private SortedSet<Post> drafts;
+//
+//    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+//    @LazyCollection(LazyCollectionOption.EXTRA)
+//    @SortNatural
+//    @ContainedIn
+//    private SortedSet<Comment> comments;
 
     @ManyToMany
     @JoinTable(name = "post_related_post", joinColumns = {@JoinColumn(name = "post_id")}, inverseJoinColumns = {@JoinColumn(name = "related_id")})
@@ -251,21 +251,21 @@ public class Post extends AbstractDomainObject<Integer> {
         this.draftedCode = draftedCode;
     }
 
-    public SortedSet<Post> getDrafts() {
-        return drafts;
-    }
-
-    public void setDrafts(SortedSet<Post> drafts) {
-        this.drafts = drafts;
-    }
-
-    public SortedSet<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(SortedSet<Comment> comments) {
-        this.comments = comments;
-    }
+//    public SortedSet<Post> getDrafts() {
+//        return drafts;
+//    }
+//
+//    public void setDrafts(SortedSet<Post> drafts) {
+//        this.drafts = drafts;
+//    }
+//
+//    public SortedSet<Comment> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(SortedSet<Comment> comments) {
+//        this.comments = comments;
+//    }
 
     public Set<Post> getRelatedPosts() {
         return getRelatedToPosts();

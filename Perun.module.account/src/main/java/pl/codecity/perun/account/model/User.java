@@ -19,7 +19,7 @@ import java.util.Set;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "USER")
+@Table(name = "`USER`")
 @SuppressWarnings("serial")
 public class User extends AbstractDomainObject<Long> {
 
@@ -66,15 +66,15 @@ public class User extends AbstractDomainObject<Long> {
             joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "USER_STATUS_ID") })
     private Set<UserStatus> userStatuses = new HashSet<>();
 
-    @NotEmpty
-    @ManyToMany
-    @JoinTable(name = "USER_ARTICLE")
-    private Set<Article> articles = new HashSet<>();
-
-    @NotEmpty
-    @ManyToMany
-    @JoinTable(name = "USER_POST")
-    private Set<Post> posts = new HashSet<>();
+//    @NotEmpty
+//    @ManyToMany
+//    @JoinTable(name = "USER_ARTICLE")
+//    private Set<Article> articles = new HashSet<>();
+//
+//    @NotEmpty
+//    @ManyToMany
+//    @JoinTable(name = "USER_POST")
+//    private Set<Post> posts = new HashSet<>();
 
     // Abstract methods
 
@@ -167,21 +167,21 @@ public class User extends AbstractDomainObject<Long> {
         this.userStatuses = userStatuses;
     }
 
-    public Set<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(Set<Article> articles) {
-        this.articles = articles;
-    }
-
-    public Set<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
-    }
+//    public Set<Article> getArticles() {
+//        return articles;
+//    }
+//
+//    public void setArticles(Set<Article> articles) {
+//        this.articles = articles;
+//    }
+//
+//    public Set<Post> getPosts() {
+//        return posts;
+//    }
+//
+//    public void setPosts(Set<Post> posts) {
+//        this.posts = posts;
+//    }
 
     // Other methods
 
