@@ -8,4 +8,5 @@ public interface FileWarehouseService {
 
     File findOneById(String id);
     List<File> findAll();
+    void processUploadFile(byte[] bytes);
 }

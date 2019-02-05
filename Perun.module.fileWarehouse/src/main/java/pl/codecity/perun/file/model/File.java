@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import pl.codecity.perun.common.model.AbstractDomainObject;
 
 import javax.persistence.*;
+import java.sql.Blob;
 
 @Entity
 @Table(name = "File")
@@ -13,12 +14,14 @@ public class File extends AbstractDomainObject<String> {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     @Column(name = "ID", length = 50)
-    String id;
+    private String id;
 
     @Column(name = "ORIGINAL_NAME", length = 500)
-    String fileName;
+    private String fileName;
 
-    //
+    @Lob
+    @Column
+    private Blob content;
 
     @Override
     public String getId() {
@@ -37,7 +40,13 @@ public class File extends AbstractDomainObject<String> {
         this.fileName = fileName;
     }
 
-    //
+    public Blob getContent() {
+        return content;
+    }
+
+    public void setContent(Blob content) {
+        this.content = content;
+    }
 
     @Override
     public String print() {
